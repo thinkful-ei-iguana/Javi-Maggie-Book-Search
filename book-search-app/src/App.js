@@ -17,12 +17,6 @@ export class App extends Component {
   }
 
 
-  setSearchTerm(searchTermValue) {
-    this.setState({
-    searchTerm: searchTermValue
-    });
-  }
-
   formatQueryString(params){
     const formatString = Object.keys(params).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
 
@@ -36,13 +30,12 @@ export class App extends Component {
     // need to use API key
     
     let searchTermValue = e.currentTarget["search"].value;
-    
-    this.setSearchTerm(searchTermValue);
-      console.log('state has changed', searchTermValue)
 
-      // GET https://www.googleapis.com/books/v1/volumes?q=flowers&projection=lite&key=yourAPIKey
-      //formatString:                                    q=harry potter&key=AIzaSyBSfgNQ9BcMTLRezh1STiiXwXnYfr6tFaQ
-
+    this.setState({
+      searchTerm: searchTermValue
+      }, () => {
+        // this.setSearchTerm(searchTermValue);
+    //   console.log('state has changed', searchTermValue)
 
 
     const searchInput = this.state.searchTerm;
@@ -65,15 +58,15 @@ export class App extends Component {
 
     fetch(newUrl)
       .then(res => res.json())
-      .then(res => this.bookInfo(res))
-
-      console.log('book:',this.bookInfo())
-    }
-      
+      .then(data => this.bookInfo(data))
+      }
+      );
   
+    }
 
-  bookInfo(res){
-    console.log(res.items)
+  bookInfo(data){
+    console.log(data);
+    console.log(data.items[0].volumeInfo.authors);
     return null
   }
   
