@@ -24,28 +24,31 @@ export class App extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(e.currentTarget["search"].value);
-    //need to use API key
-    // const searchInput = encodeURIComponent(this.state.searchTerm);
-    // const url = `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`
-    // console.log('url is', url);
-    // const options = {
-    //   method: 'GET',
-    //   body: JSON.stringify(searchInput),
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   }
-    // }
+    // need to use API key
+    
     let searchTermValue = e.currentTarget["search"].value;
     
     this.setSearchTerm(searchTermValue);
     
       console.log('state has changed', searchTermValue)
+
+    const searchInput = encodeURIComponent(this.state.searchTerm);
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`
+    console.log('url is', url);
+    const options = {
+      method: 'GET',
+      body: JSON.stringify(searchInput),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+    
     
     
 
-    // fetch(url)
-    //   .then(res => res.json())
-    //   .then(res => this.bookInfo(res))
+    fetch(url)
+      .then(res => res.json())
+      .then(res => this.bookInfo(res))
     }
       
   
