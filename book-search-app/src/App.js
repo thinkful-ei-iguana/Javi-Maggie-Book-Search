@@ -11,15 +11,18 @@ export class App extends Component {
     super(props);
     this.state ={
       books: [],
-      
-
+      printType: null,
+      booktype: null,
+      loading: false,
+      error: null,
+    
     }
   }
 
 
   formatQueryString(params){
     const formatString = Object.keys(params).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
-    
+
     return formatString.join('&')
   }
 
