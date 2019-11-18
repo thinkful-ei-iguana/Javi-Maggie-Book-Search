@@ -39,13 +39,13 @@ export class App extends Component {
   bookInfo(res){
     return (res)
   }
-
   searchTermEntered(searchTerm) {
     console.log('searchTermEntered:',searchTerm)
     // this.setState({
     //   searchTerm
     // });
   }
+  
 
 
   render() {
