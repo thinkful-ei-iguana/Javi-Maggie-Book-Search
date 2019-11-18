@@ -11,7 +11,7 @@ export class App extends Component {
     super(props);
     this.state ={
       books: [],
-      searchTerm: "",
+      
 
     }
   }
@@ -19,30 +19,16 @@ export class App extends Component {
 
   formatQueryString(params){
     const formatString = Object.keys(params).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
-
-    console.log('formatString:',formatString.join('&'))
+    
     return formatString.join('&')
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.currentTarget["search"].value);
-    // need to use API key
-    
-    let searchTermValue = e.currentTarget["search"].value;
-
-    this.setState({
-      searchTerm: searchTermValue
-      }, () => {
-        // this.setSearchTerm(searchTermValue);
-    //   console.log('state has changed', searchTermValue)
 
 
-    const searchInput = this.state.searchTerm;
+    const searchInput = e.currentTarget["search"].value;
     const url = `https://www.googleapis.com/books/v1/volumes`
-    console.log('input',searchInput)
-    console.log('url is', url);
-    
 
     const params = {
       q: searchInput,
@@ -50,23 +36,20 @@ export class App extends Component {
     }
     
     let queryString = this.formatQueryString(params)
-    console.log(queryString);
-
+  
     const newUrl = url + '?' + queryString;
-    console.log(newUrl)
-    
+  
 
     fetch(newUrl)
       .then(res => res.json())
       .then(data => this.bookInfo(data))
-      }
-      );
+    
   
     }
 
   bookInfo(data){
-    console.log(data);
-    console.log(data.items[0].volumeInfo.authors);
+    console.log('data:',data);
+    console.log('data author:',data.items[0].volumeInfo.authors);
     return null
   }
   

@@ -1,7 +1,7 @@
 import React from 'react'
 
 function results(props){
-console.log('results:',props.bookInfo)
+// console.log('results:',props.bookInfo)
 
 return null
 }
