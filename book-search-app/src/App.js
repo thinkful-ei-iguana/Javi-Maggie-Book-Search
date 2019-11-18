@@ -16,6 +16,7 @@ export class App extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    console.log(e.currentTarget["search"].value);
     //need to use API key
     // const searchInput = encodeURIComponent(this.state.searchTerm);
     // const url = `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`

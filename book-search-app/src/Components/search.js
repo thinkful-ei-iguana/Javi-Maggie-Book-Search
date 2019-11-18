@@ -10,13 +10,13 @@ function Search(props){
         <label htmlFor="search">
           <input
             type="text" 
-            onChange={e => props.searchTerm(e.target.value)} 
+            
             name="search" 
             id="search" 
             placeholder="Great Expectations">
           </input>
         </label>
-          <button type="submit" onClick={() => props.searchTerm}>Hit It!</button>
+          <button type="submit" >Hit It!</button>
       </form>
     )
 }
