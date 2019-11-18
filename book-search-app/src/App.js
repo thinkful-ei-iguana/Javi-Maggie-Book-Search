@@ -14,7 +14,14 @@ export class App extends Component {
     }
   }
 
-  handleSubmit(e) {
+
+  setSearchTerm(searchTermValue) {
+    this.setState({
+    searchTerm: searchTermValue
+    });
+  }
+
+  handleSubmit = (e) => {
     e.preventDefault();
     console.log(e.currentTarget["search"].value);
     //need to use API key
@@ -28,23 +35,25 @@ export class App extends Component {
     //     "Content-Type": "application/json"
     //   }
     // }
+    let searchTermValue = e.currentTarget["search"].value;
+    
+    this.setSearchTerm(searchTermValue);
+    
+      console.log('state has changed', searchTermValue)
+    
+    
 
     // fetch(url)
     //   .then(res => res.json())
     //   .then(res => this.bookInfo(res))
-
+    }
       
-  }
+  
 
   bookInfo(res){
     return (res)
   }
-  searchTermEntered(searchTerm) {
-    console.log('searchTermEntered:',searchTerm)
-    // this.setState({
-    //   searchTerm
-    // });
-  }
+  
   
 
 
@@ -52,7 +61,7 @@ export class App extends Component {
     return (
       <div>
         <Header />
-        <Search searchTerm={this.searchTermEntered} handleSubmit={this.handleSubmit}/>
+        <Search handleSubmit={this.handleSubmit}/>
         <Results bookArray={this.state.books} bookInfo={this.bookInfo}/>
       </div>
     )

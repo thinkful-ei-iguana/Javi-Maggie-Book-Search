@@ -10,7 +10,6 @@ function Search(props){
         <label htmlFor="search">
           <input
             type="text" 
-            
             name="search" 
             id="search" 
             placeholder="Great Expectations">
