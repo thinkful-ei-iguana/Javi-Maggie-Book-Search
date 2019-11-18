@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import IndividualResults from './individualResult'
+import React from 'react'
 
+function results(props){
+console.log('results:',props)
 
-class Results extends Component {
-
-
+return null
 }
 
-export default Results;
+export default results
+
+//title, authors, description, isEbook, printType, retailPrice
