@@ -1,7 +1,12 @@
 import React from 'react';
 
+
+
+
 function Search(props){
-  console.log('search',props)
+  
+
+  
 
     
     return (

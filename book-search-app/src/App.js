@@ -53,7 +53,17 @@ export class App extends Component {
   bookInfo(data){
     console.log('data:',data);
     console.log('data author:',data.items[0].volumeInfo.authors);
-    return null
+    //title author price description
+    for(let i = 0; i < data.items.length; i++){
+        this.setState({
+          books: [{
+            title: data.items[i].volumeInfo.title,
+            author: data.items[i].volumeInfo.authors,
+          }]
+        })
+    }
+
+    console.log("books array:",this.state.books);
   }
   
   
