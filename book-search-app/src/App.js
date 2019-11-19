@@ -11,13 +11,12 @@ export class App extends Component {
     super(props);
     this.state ={
       books: [],
-      searchTerm: "",
 
     }
   }
 
 
-  formatQueryString(params){
+  formatQueryString = (params) => {
     const formatString = Object.keys(params).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
 
     console.log('formatString:',formatString.join('&'))
@@ -31,21 +30,19 @@ export class App extends Component {
     
     let searchTermValue = e.currentTarget["search"].value;
 
-    this.setState({
-      searchTerm: searchTermValue
-      }, () => {
+    
         // this.setSearchTerm(searchTermValue);
     //   console.log('state has changed', searchTermValue)
 
 
-    const searchInput = this.state.searchTerm;
+    // const searchInput = this.state.searchTerm;
     const url = `https://www.googleapis.com/books/v1/volumes`
-    console.log('input',searchInput)
+    // console.log('input',searchInput)
     console.log('url is', url);
     
 
     const params = {
-      q: searchInput,
+      q: searchTermValue,
       key: apiKey,
     }
     
@@ -58,20 +55,21 @@ export class App extends Component {
 
     fetch(newUrl)
       .then(res => res.json())
-      .then(data => this.bookInfo(data))
-      }
-      );
-  
+      .then(data => {
+        this.setState({
+          books: data.items
+        }, () => {
+          this.bookInfo(data);
+        });
+      })
+      .catch(e => console.log('something is wrong:', e));
     }
 
   bookInfo(data){
-    console.log(data);
-    console.log(data.items[0].volumeInfo.authors);
-    return null
+    // data = this.state.books;
+    return null;
   }
   
-  
-
 
   render() {
   
@@ -79,7 +77,7 @@ export class App extends Component {
       <div>
         <Header />
         <Search handleSubmit={this.handleSubmit}/>
-        <Results bookArray={this.state.books} bookInfo={this.bookInfo}/>
+        <Results bookArray={this.state.books}/>
       </div>
     )
   }
