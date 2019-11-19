@@ -45,26 +45,10 @@ export class App extends Component {
 
     fetch(newUrl)
       .then(res => res.json())
-      .then(data => this.bookInfo(data))
+      .then(data => this.setState({books: data}))
     
   
     }
-
-  bookInfo(data){
-    console.log('data:',data);
-    console.log('data author:',data.items[0].volumeInfo.authors);
-    //title author price description
-    for(let i = 0; i < data.items.length; i++){
-        this.setState({
-          books: [{
-            title: data.items[i].volumeInfo.title,
-            author: data.items[i].volumeInfo.authors,
-          }]
-        })
-    }
-
-    console.log("books array:",this.state.books);
-  }
   
   
 
@@ -75,7 +59,7 @@ export class App extends Component {
       <div>
         <Header />
         <Search handleSubmit={this.handleSubmit}/>
-        <Results bookArray={this.state.books} bookInfo={this.bookInfo}/>
+        <Results books={this.state.books} />
       </div>
     )
   }
