@@ -10,7 +10,7 @@ export class App extends Component {
   constructor(props){
     super(props);
     this.state ={
-      books: [],
+      books: null,
       printType: null,
       booktype: null,
       loading: false,
@@ -50,16 +50,16 @@ export class App extends Component {
   
     }
   
-  
-
+ 
 
   render() {
-  
+     
     return (
       <div>
         <Header />
         <Search handleSubmit={this.handleSubmit}/>
-        <Results books={this.state.books} />
+        {/* if this.state.books && <Results books ={this.state.books} */}
+        {this.state.books && <Results books={this.state.books} />}
       </div>
     )
   }

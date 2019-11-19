@@ -1,11 +1,16 @@
 import React from 'react'
-import IndvidualResults from './individualResult'
+import IndvidualResults from './IndividualResult'
 
 function results(props){
-    console.log(props.books)
-
+    
+   console.log('books:',props.books.items)
+    let title = props.books.items.map(book => {
+        console.log(book.volumeInfo.title)
+    })
+    console.log(title)
 return(
-    props.books.map(book => {
+    
+    props.books.items.map(book => {
         const title = book.volumeInfo.title;
         const description = book.volumeInfo.description;
         const imageLinks = book.volumeInfo.imageLinks;

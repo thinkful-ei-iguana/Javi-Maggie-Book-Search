@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 export default function IndividualResults(props){
-
+// console.log(props)
   
 return(
 <section>
