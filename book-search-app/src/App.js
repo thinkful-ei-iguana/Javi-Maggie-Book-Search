@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Header from './Components/header';
 import Search from './Components/search'
 import Results from './Components/results'
+import Filters from './Components/filters';
 
 const apiKey = 'AIzaSyBSfgNQ9BcMTLRezh1STiiXwXnYfr6tFaQ';
 
@@ -19,6 +20,16 @@ export class App extends Component {
     }
   }
 
+  printTypeFilter = (newVal) =>{
+    console.log(newVal);
+    this.setState({printType: newVal})
+  }
+
+  bookTypeFilter = (newVal) =>{
+    console.log(newVal)
+    this.setState({bookType: newVal})
+  }
+
 
   formatQueryString(params){
     const formatString = Object.keys(params).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
@@ -28,8 +39,7 @@ export class App extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-
-
+    
     const searchInput = e.currentTarget["search"].value;
     const url = `https://www.googleapis.com/books/v1/volumes`
 
@@ -60,6 +70,8 @@ export class App extends Component {
         <Search handleSubmit={this.handleSubmit}/>
         {/* if this.state.books && <Results books ={this.state.books} */}
         {this.state.books && <Results books={this.state.books} />}
+        <Filters handleSubmit={this.handleSubmit} printType={this.printTypeFilter}/>
+
       </div>
     )
   }

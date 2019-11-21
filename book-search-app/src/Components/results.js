@@ -3,11 +3,11 @@ import IndvidualResults from './IndividualResult'
 
 function results(props){
     
-   console.log('books:',props.books.items)
-    let title = props.books.items.map(book => {
-        console.log(book.volumeInfo.title)
-    })
-    console.log(title)
+//    console.log('books:',props.books.items)
+//     let title = props.books.items.map(book => {
+//         console.log(book.volumeInfo.title)
+//     })
+//     console.log(title)
 return(
     
     props.books.items.map(book => {
