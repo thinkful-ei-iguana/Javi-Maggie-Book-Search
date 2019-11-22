@@ -4,18 +4,18 @@ header {
     color: black;
 }
 
-#blue {
+.blue {
     color: blue;
 }
 
-#red {
+.red {
     color: red;
 }
 
-.orange {
+#orange {
     color: orange;
 }
 
-.green {
+#green {
     color: green;
 }
