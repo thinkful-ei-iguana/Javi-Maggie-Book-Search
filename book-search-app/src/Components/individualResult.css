@@ -1,11 +1,15 @@
-h2 {
+h3, p {
     text-align: center;
+    margin: 20px;
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
 }
 
-.hidden {
-    display: none;
-}
+img {
+    margin-left: 44%;
+    margin-right: 50%;
 
-.content {
-    text-align: center;
 }

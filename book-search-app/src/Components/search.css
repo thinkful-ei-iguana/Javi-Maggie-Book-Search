@@ -1,13 +1,11 @@
-form {
+.search-input {
     text-align: center;
+    background-color: orange;
 }
 
-input {
-    border: 2px solid black;
-    margin-right: 2px;
-}
-
-button {
-    padding: 1px;
-    border: 2px solid black;
+form {
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom:10px;
+    padding: 4px;
 }
