@@ -12,8 +12,8 @@ export class App extends Component {
     super(props);
     this.state ={
       books: null,
-      printType: null,
-      booktype: null,
+      printType: "books",
+      bookType: "full",
       loading: false,
       error: null,
     
@@ -43,15 +43,17 @@ export class App extends Component {
     const searchInput = e.currentTarget["search"].value;
     const url = `https://www.googleapis.com/books/v1/volumes`
 
-    const params = {
+    let params = {
       q: searchInput,
+      printType: this.state.printType,
+      filter: this.state.bookType,
       key: apiKey,
     }
     
     let queryString = this.formatQueryString(params)
   
     const newUrl = url + '?' + queryString;
-  
+      console.log(newUrl)
 
     fetch(newUrl)
       .then(res => res.json())
@@ -63,14 +65,14 @@ export class App extends Component {
  
 
   render() {
-     
+   
     return (
       <div>
         <Header />
         <Search handleSubmit={this.handleSubmit}/>
-        {/* if this.state.books && <Results books ={this.state.books} */}
-        {this.state.books && <Results books={this.state.books} />}
-        <Filters handleSubmit={this.handleSubmit} printType={this.printTypeFilter}/>
+        <Filters handleSubmit={this.handleSubmit} printType={this.printTypeFilter} bookType={this.bookTypeFilter}/>
+        {this.state.books &&  <Results books={this.state.books} />}
+        
 
       </div>
     )

@@ -8,8 +8,8 @@ function results(props){
 //         console.log(book.volumeInfo.title)
 //     })
 //     console.log(title)
+console.log(props.books)
 return(
-    
     props.books.items.map(book => {
         const title = book.volumeInfo.title;
         const description = book.volumeInfo.description;
