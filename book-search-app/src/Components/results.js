@@ -1,25 +1,40 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import IndividualResults from './individualResult';
+import cuid from 'cuid';
 
-function Results(props) {
+class Results extends Component {
+    render() {
+        console.log('results props is', this.props.books)
+        return (
+            <ul className="results-list">
+                {this.props.books.items.map(book => {
+                    let title = book.volumeInfo.title;
+                    let author = book.volumeInfo.authors;
+                    let description = book.volumeInfo.description;
+                    let printType = book.volumeInfo.printType;
+                    let thumbnail = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "";
+                    let isEbook = book.saleInfo.isEbook;
+                    return (
+                        <IndividualResults key={cuid()}
+                            title={title}
+                            author={author}
+                            description={description}
+                            typePrint={printType}
+                            thumbnail={thumbnail}
+                            isEbook={isEbook}
+                        />
+                    );
+                })}
+            </ul>
+        )
+    }
 
-    return (
-        <ul className="results-list">
-            {props.bookArray.map((book, index) => {
-                return (
-                    <IndividualResults key={index}
-                                        title={props.bookArray[index].volumeInfo.title}
-                                        author={props.bookArray[index].volumeInfo.authors}
-                                        description={props.bookArray[index].volumeInfo.description}
-                                        printType={props.bookArray[index].volumeInfo.printType}
-                                        thumbnail={props.bookArray[index].volumeInfo.imageLinks.thumbnail}
-                                        isEbook={props.bookArray[index].saleInfo.isEbook}
-                    />
-                )
-            })}
-        </ul>
-    )
+}
 
+Results.defaultProps = {
+    books: {
+        items: []
+    }
 }
 
 export default Results

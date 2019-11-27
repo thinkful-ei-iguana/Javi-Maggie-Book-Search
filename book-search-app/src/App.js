@@ -1,83 +1,92 @@
-import React, { Component } from 'react'
-
+import React, { Component } from 'react';
 import Header from './Components/header';
-import Search from './Components/search'
-import Results from './Components/results'
+import Search from './Components/search';
+import Results from './Components/results';
+import Filters from './Components/filters';
 
 const apiKey = 'AIzaSyBSfgNQ9BcMTLRezh1STiiXwXnYfr6tFaQ';
 
 export class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state ={
-      books: [],
-
+    this.state = {
+      books: {
+        items: []
+      },
+      bookType: null,
+      printType: null,
+      searchTerm: ""
     }
   }
 
 
-  formatQueryString = (params) => {
+  setSearchInput = (input) => {
+    return new Promise((resolve) => {
+      this.setState({ searchTerm: input }, resolve);
+    });
+  }
+
+  formatQueryString(params) {
     const formatString = Object.keys(params).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
 
-    console.log('formatString:',formatString.join('&'))
     return formatString.join('&')
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.currentTarget["search"].value);
-    // need to use API key
-    
-    let searchTermValue = e.currentTarget["search"].value;
 
-    
-        // this.setSearchTerm(searchTermValue);
-    //   console.log('state has changed', searchTermValue)
-
-
-    // const searchInput = this.state.searchTerm;
     const url = `https://www.googleapis.com/books/v1/volumes`
-    // console.log('input',searchInput)
-    console.log('url is', url);
-    
 
-    const params = {
-      q: searchTermValue,
-      key: apiKey,
+    let params = {
+      q: this.state.searchTerm,
+      key: apiKey
+    };
+
+    if (this.state.printType) {
+      params.printType = this.state.printType;
     }
-    
-    let queryString = this.formatQueryString(params)
-    console.log(queryString);
+    if (this.state.bookType) {
+      params.filter = this.state.bookType;
+    }
+
+    let queryString = this.formatQueryString(params);
 
     const newUrl = url + '?' + queryString;
-    console.log(newUrl)
-    
+    console.log(newUrl);
 
     fetch(newUrl)
       .then(res => res.json())
       .then(data => {
-        this.setState({
-          books: data.items
-        }, () => {
-          this.bookInfo(data);
+        return new Promise((resolve) => {
+          this.setState({ books: data }, () => {
+            resolve();
+          });
         });
       })
-      .catch(e => console.log('something is wrong:', e));
-    }
-
-  bookInfo(data){
-    // data = this.state.books;
-    return null;
+      .catch(e => { console.log('something is wrong:', e) })
   }
-  
+
+  handlePrintType = (input) => {
+    return new Promise((resolve) => {
+      this.setState({ printType: input }, resolve)
+    });
+  }
+
+  handleBookType = (input) => {
+    return new Promise((resolve) => {
+      this.setState({ bookType: input }, resolve)
+    });
+  }
+
 
   render() {
-  
+    console.log('books is', this.state.books);
     return (
       <div>
         <Header />
-        <Search handleSubmit={this.handleSubmit}/>
-        <Results bookArray={this.state.books}/>
+        <Search handleSubmit={this.handleSubmit} setSearchInput={this.setSearchInput} />
+        <Filters handleSubmit={this.handleSubmit} typeBook={this.handleBookType} typePrint={this.handlePrintType} />
+        {this.state.books && <Results books={this.state.books} />}
       </div>
     )
   }

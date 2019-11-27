@@ -4,10 +4,10 @@ import './individualResult.css';
 function IndividualResults(props) {
 
   return (
-    <div className="book-result">
+    <div className="book-result" aria-live="assertive">
       <h3>{props.title}</h3>
       <div className="image">
-        <img src={props.thumbnail} alt="Image of book" />
+        <img src={props.thumbnail} />
       </div>
       <div className="content">
         <p>{props.author}</p>
